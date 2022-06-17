@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:musico/screens/splash_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
+      home: const SplashScreen(),
     );
   }
 }
