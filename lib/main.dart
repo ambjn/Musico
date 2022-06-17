@@ -19,9 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'muSiCo',
       theme: ThemeData(
-        // apply the following for light theme
         brightness: Brightness.light,
-        primaryColor: Colors.white,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           elevation: 0,
