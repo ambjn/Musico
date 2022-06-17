@@ -70,11 +70,11 @@ class SplashScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               Text(
-                                "Let's Start",
-                                style: TextStyle(fontSize: 16),
+                                "let's relax",
+                                style: TextStyle(fontSize: 18),
                               ),
                               Icon(
-                                Icons.arrow_forward,
+                                Icons.music_note,
                                 color: Colors.white,
                               ),
                             ],
@@ -82,6 +82,13 @@ class SplashScreen extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const Text(
+                "relaxing music at your fingertips 👌🎶",
+                style: TextStyle(fontSize: 18),
               ),
               Expanded(
                 child: Container(
