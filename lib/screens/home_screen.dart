@@ -26,10 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.grey,
               size: 35,
             )),
-        title: Text(
-          "calming music",
-          style:
-              TextStyle(letterSpacing: 2, color: Colors.amberAccent.shade700),
+        title: const Text(
+          "calming🪷music",
+          style: TextStyle(letterSpacing: 2, color: Colors.redAccent),
         ),
       ),
     );
