@@ -39,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
               Container(
                 width: 150.0,
@@ -51,8 +51,8 @@ class SplashScreen extends StatelessWidget {
                       //         builder: (_) => const NotesScreen()));
                     },
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.amber.shade900),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.orangeAccent.shade400),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
