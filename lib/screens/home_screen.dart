@@ -51,9 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     // listen to audio position
-    _audioPlayer.onPositionChanged.listen((newDuration) {
+    _audioPlayer.onPositionChanged.listen((newPosition) {
       setState(() {
-        position = newDuration;
+        position = newPosition;
       });
     });
   }
@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _audioPlayer.setReleaseMode(ReleaseMode.loop);
 
     String url =
-        "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        // "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        'https://drive.google.com/drive/folders/1TgJ1KbCfOhEwvvA9OD2-gujZToHy0ZLa';
     _audioPlayer.setSourceUrl(url);
 
     // // load audio from assets
@@ -135,17 +136,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (value) async {
                   final position = Duration(seconds: value.toInt());
                   await _audioPlayer.seek(position);
-
                   // optional : play audio if was paused
                   await _audioPlayer.resume();
                 }),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Text(formatTime(position)),
-            //     Text(formatTime(duration - position))
-            //   ],
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(position.toString().substring(0, 7)),
+                Text((duration - position).toString().substring(0, 7))
+              ],
+            ),
             CircleAvatar(
               radius: 35,
               child: IconButton(
