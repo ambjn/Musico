@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     setAudio();
     // listen to states : playing, paused, stopped
     _audioPlayer.onPlayerStateChanged.listen((state) {
@@ -25,23 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
         _isPlaying = state == PlayerState.playing;
       });
     });
-
-    // audioPlayer.onPlayerStateChanged.listen((s) {
-    //   if (s == AudioPlayerState.PLAYING) {
-    //     setState(() => duration = audioPlayer.duration);
-    //   } else if (s == AudioPlayerState.STOPPED) {
-    //     onComplete();
-    //     setState(() {
-    //       position = duration;
-    //     });
-    //   }
-    // }, onError: (msg) {
-    //   setState(() {
-    //     playerState = PlayerState.stopped;
-    //     duration = new Duration(seconds: 0);
-    //     position = new Duration(seconds: 0);
-    //   });
-    // });
 
     // listen to audio duration
     _audioPlayer.onDurationChanged.listen((newDuration) {
@@ -61,23 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     _audioPlayer.dispose();
+    super.dispose();
   }
 
   Future setAudio() async {
     // repeat song when completed
     _audioPlayer.setReleaseMode(ReleaseMode.loop);
 
-    String url =
-        // "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-        'https://drive.google.com/drive/folders/1TgJ1KbCfOhEwvvA9OD2-gujZToHy0ZLa';
-    _audioPlayer.setSourceUrl(url);
-
-    // // load audio from assets
-    // final player = AudioCache(prefix: 'assets/audio/');
-    // final url = await player.load('audio1.mp3');
-    // _audioPlayer.setSourceAsset(
-    //   url.path,
-    // );
+    // to play from local-files
+    final result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      final file = File(result.files.single.path!);
+      _audioPlayer.setSourceUrl(file.path);
+    }
   }
 
   @override
@@ -98,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
               size: 35,
             )),
         title: const Text(
-          "calming🪷music",
-          style: TextStyle(letterSpacing: 2, color: Colors.redAccent),
+          "music 🪷",
+          style: TextStyle(letterSpacing: 3, color: Colors.redAccent),
         ),
       ),
       body: Padding(

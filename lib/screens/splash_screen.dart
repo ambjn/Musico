@@ -87,8 +87,8 @@ class SplashScreen extends StatelessWidget {
                 height: 15,
               ),
               const Text(
-                "relaxing music at your fingertips 👌🎶",
-                style: TextStyle(fontSize: 18),
+                "where words fail, music speaks 👌🎶",
+                style: TextStyle(fontSize: 20),
               ),
               Expanded(
                 child: Container(
