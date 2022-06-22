@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
@@ -19,6 +20,28 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+
+  dynamic coverImage = [
+    "assets/images/music_cover/wall_1.jpg",
+    "assets/images/music_cover/wall_2.jpg",
+    "assets/images/music_cover/wall_4.jpg",
+    "assets/images/music_cover/wall_6.jpg",
+  ];
+  late Random rnd;
+
+  buildImage() {
+    int min = 0;
+    int max = coverImage.length - 1;
+    rnd = Random();
+    int r = min + rnd.nextInt(max - min);
+    String imageName = coverImage[r].toString();
+    return Image.asset(
+      imageName.toString(),
+      width: double.infinity,
+      height: 350,
+      fit: BoxFit.cover,
+    );
+  }
 
   @override
   void initState() {
@@ -77,6 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45.0),
         child: AppBar(
+          backgroundColor: Colors.transparent,
           elevation: 2,
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -89,9 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey,
                 size: 35,
               )),
-          title: const Text(
+          title: Text(
             "music 🪷",
-            style: TextStyle(letterSpacing: 3, color: Colors.redAccent),
+            style: TextStyle(letterSpacing: 3, color: Colors.red.shade900),
           ),
         ),
       ),
@@ -104,14 +128,16 @@ class _HomeScreenState extends State<HomeScreen> {
               scale: 5,
               blurRadius: 150,
               borderRadius: 20,
-              image: Image.network(
-                // "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-                'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                // 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-                width: double.infinity,
-                height: 350,
-                fit: BoxFit.cover,
-              ),
+              image: buildImage(),
+
+              // image: Image.network(
+              //   // "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+              //   'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+              //   // 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+              // width: double.infinity,
+              // height: 350,
+              // fit: BoxFit.cover,
+              // ),
             ),
             const SizedBox(
               height: 60,
