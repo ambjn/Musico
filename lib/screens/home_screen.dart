@@ -115,7 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
           title: Text(
             "music 🪷",
-            style: TextStyle(letterSpacing: 3, color: Colors.red.shade900),
+            style:
+                TextStyle(letterSpacing: 3, color: Colors.redAccent.shade700),
           ),
         ),
       ),
@@ -154,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(
-              height: 32,
+              height: 20,
             ),
             Slider(
                 activeColor: Colors.amber,
@@ -188,23 +189,44 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(
                   size: 50,
                   _isPlaying ? FontAwesomeIcons.pause : FontAwesomeIcons.play),
-            )
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (widget.isMount) {
+                    setState(() {
+                      setAudio();
+                    });
+                  }
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.redAccent.shade400),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ))),
+                child: const Text(
+                  "select your song",
+                  style: TextStyle(fontSize: 18),
+                )),
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation
-          .endFloat, // use floatingActionButton for uninterrupted listview since it doesn't cause out of pixels error
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.teal.shade700,
-        child: const Icon(FontAwesomeIcons.plus),
-        onPressed: () {
-          if (widget.isMount) {
-            setState(() {
-              setAudio();
-            });
-          }
-        },
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.black12,
+      //   child: const Icon(FontAwesomeIcons.music),
+      // onPressed: () {
+      // if (widget.isMount) {
+      //   setState(() {
+      //     setAudio();
+      //   });
+      // }
+      //   },
+      // ),
     );
   }
 }
