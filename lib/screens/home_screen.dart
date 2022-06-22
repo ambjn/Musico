@@ -45,11 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    if (widget.isMount) {
-      setState(() {
-        setAudio();
-      });
-    }
+    // if (widget.isMount) {
+    //   setState(() {
+    //     setAudio();
+    //   });
+    // }
     super.initState();
 
     // listen to states : playing, paused, stopped
@@ -191,6 +191,19 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation
+          .endFloat, // use floatingActionButton for uninterrupted listview since it doesn't cause out of pixels error
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.teal.shade700,
+        child: const Icon(FontAwesomeIcons.plus),
+        onPressed: () {
+          if (widget.isMount) {
+            setState(() {
+              setAudio();
+            });
+          }
+        },
       ),
     );
   }
