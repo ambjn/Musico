@@ -45,11 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // if (widget.isMount) {
-    //   setState(() {
-    //     setAudio();
-    //   });
-    // }
     super.initState();
 
     // listen to states : playing, paused, stopped
@@ -130,32 +125,13 @@ class _HomeScreenState extends State<HomeScreen> {
               blurRadius: 150,
               borderRadius: 20,
               image: buildImage(),
-
-              // image: Image.network(
-              //   // "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-              //   'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-              //   // 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-              // width: double.infinity,
-              // height: 350,
-              // fit: BoxFit.cover,
-              // ),
             ),
             const SizedBox(
-              height: 60,
+              height: 20,
             ),
             const Text(
               "Song Name",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 4,
-            ),
-            const Text(
-              "Singer",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 20,
             ),
             Slider(
                 activeColor: Colors.amber,
@@ -172,12 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(position.toString().substring(0, 7)),
+                Text(
+                  position.toString().substring(0, 7),
+                ),
                 Text((duration - position).toString().substring(0, 7))
               ],
             ),
             IconButton(
-              splashRadius: 40,
               color: Colors.amber,
               onPressed: () async {
                 if (_isPlaying) {
@@ -190,43 +167,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 50,
                   _isPlaying ? FontAwesomeIcons.pause : FontAwesomeIcons.play),
             ),
-            const SizedBox(
-              height: 40,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  if (widget.isMount) {
-                    setState(() {
-                      setAudio();
-                    });
-                  }
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.redAccent.shade400),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ))),
-                child: const Text(
-                  "select your song",
-                  style: TextStyle(fontSize: 18),
-                )),
+            // const SizedBox(
+            //   height: 20,
+            // ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       if (widget.isMount) {
+            //         setState(() {
+            //           setAudio();
+            //         });
+            //       }
+            //     },
+            //     style: ButtonStyle(
+            //         backgroundColor:
+            //             MaterialStateProperty.all(Colors.redAccent.shade400),
+            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //             RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(30.0),
+            //         ))),
+            //     child: const Text(
+            //       "select your song",
+            //       style: TextStyle(fontSize: 18),
+            //     )),
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.black12,
-      //   child: const Icon(FontAwesomeIcons.music),
-      // onPressed: () {
-      // if (widget.isMount) {
-      //   setState(() {
-      //     setAudio();
-      //   });
-      // }
-      //   },
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black12,
+        tooltip: 'select your song',
+        child: const Icon(
+          FontAwesomeIcons.music,
+        ),
+        onPressed: () {
+          if (widget.isMount) {
+            setState(() {
+              setAudio();
+            });
+          }
+        },
+      ),
     );
   }
 }
