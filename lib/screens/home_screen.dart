@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     setAudio();
     // listen to states : playing, paused, stopped
     _audioPlayer.onPlayerStateChanged.listen((state) {

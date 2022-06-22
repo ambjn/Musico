@@ -70,7 +70,7 @@ class SplashScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: const [
                               Text(
-                                "let's relax",
+                                "let's listen",
                                 style: TextStyle(fontSize: 18),
                               ),
                               Icon(
