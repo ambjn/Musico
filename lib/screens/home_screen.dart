@@ -56,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _audioPlayer.setReleaseMode(ReleaseMode.loop);
 
     // to play from local-files
-    final result = await FilePicker.platform.pickFiles();
+    final result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['mp3']);
     if (result != null) {
       final file = File(result.files.single.path!);
       _audioPlayer.setSourceUrl(file.path);
