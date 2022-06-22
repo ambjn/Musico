@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  final bool isMount = true;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,9 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    if (widget.isMount) {
+      setState(() {
+        setAudio();
+      });
+    }
     super.initState();
 
-    setAudio();
     // listen to states : playing, paused, stopped
     _audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
@@ -44,12 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
-
   Future setAudio() async {
     // repeat song when completed
     _audioPlayer.setReleaseMode(ReleaseMode.loop);
@@ -62,43 +63,57 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // @override
+  // void dispose() {
+  //   _audioPlayer.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.keyboard_double_arrow_left_sharp,
-              color: Colors.grey,
-              size: 35,
-            )),
-        title: const Text(
-          "music 🪷",
-          style: TextStyle(letterSpacing: 3, color: Colors.redAccent),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(45.0),
+        child: AppBar(
+          elevation: 2,
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.keyboard_double_arrow_left_sharp,
+                color: Colors.grey,
+                size: 35,
+              )),
+          title: const Text(
+            "music 🪷",
+            style: TextStyle(letterSpacing: 3, color: Colors.redAccent),
+          ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+            DropShadowImage(
+              offset: const Offset(20, 20),
+              scale: 5,
+              blurRadius: 150,
+              borderRadius: 20,
+              image: Image.network(
+                // "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+                'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+                // 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
                 width: double.infinity,
                 height: 350,
                 fit: BoxFit.cover,
               ),
             ),
             const SizedBox(
-              height: 32,
+              height: 60,
             ),
             const Text(
               "Song Name",
@@ -111,7 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
               "Singer",
               style: TextStyle(fontSize: 20),
             ),
+            const SizedBox(
+              height: 32,
+            ),
             Slider(
+                activeColor: Colors.amber,
+                inactiveColor: Colors.red.shade200,
                 min: 0,
                 max: duration.inSeconds.toDouble(),
                 value: position.inSeconds.toDouble(),
@@ -128,19 +148,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text((duration - position).toString().substring(0, 7))
               ],
             ),
-            CircleAvatar(
-              radius: 35,
-              child: IconButton(
-                icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
-                iconSize: 50,
-                onPressed: () async {
-                  if (_isPlaying) {
-                    await _audioPlayer.pause();
-                  } else {
-                    await _audioPlayer.resume();
-                  }
-                },
-              ),
+            IconButton(
+              splashRadius: 40,
+              color: Colors.amber,
+              onPressed: () async {
+                if (_isPlaying) {
+                  await _audioPlayer.pause();
+                } else {
+                  await _audioPlayer.resume();
+                }
+              },
+              icon: Icon(
+                  size: 50,
+                  _isPlaying ? FontAwesomeIcons.pause : FontAwesomeIcons.play),
             )
           ],
         ),

@@ -35,6 +35,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   audioplayers: ^1.0.0
   file_picker: ^3.0.4
+  font_awesome_flutter: ^10.1.0
+  drop_shadow_image: ^0.9.1
 
 dev_dependencies:
   flutter_test:
