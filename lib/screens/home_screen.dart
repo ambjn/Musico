@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:drop_shadow_image/drop_shadow_image.dart';
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
+  late String fName;
 
   dynamic coverImage = [
     "assets/images/music_cover/wall_1.jpg",
@@ -77,7 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['mp3']);
     if (result != null) {
+      Uint8List? fileBytes = result.files.first.bytes;
+      String fileName = result.files.first.name;
+      fName = fileName;
+
       final file = File(result.files.single.path!);
+
       _audioPlayer.setSourceUrl(file.path);
     }
   }
@@ -129,10 +136,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Song Name",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
+            // Text(
+            //   fName,
+            //   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // ),
+            // const Text(
+            //   "Song Name",
+            //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // ),
             Slider(
                 activeColor: Colors.amber,
                 inactiveColor: Colors.red.shade200,
@@ -167,28 +178,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 50,
                   _isPlaying ? FontAwesomeIcons.pause : FontAwesomeIcons.play),
             ),
-            // const SizedBox(
-            //   height: 20,
-            // ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       if (widget.isMount) {
-            //         setState(() {
-            //           setAudio();
-            //         });
-            //       }
-            //     },
-            //     style: ButtonStyle(
-            //         backgroundColor:
-            //             MaterialStateProperty.all(Colors.redAccent.shade400),
-            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            //             RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(30.0),
-            //         ))),
-            //     child: const Text(
-            //       "select your song",
-            //       style: TextStyle(fontSize: 18),
-            //     )),
           ],
         ),
       ),
